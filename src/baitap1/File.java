@@ -21,11 +21,14 @@ public class File {
 
 public void write(String path, ArrayList<String> listLines)  throws Exception{
     
-             try {
-         FileWriter writer = new FileWriter(path);
+        try {
+        FileWriter writer = new FileWriter(path);
         BufferedWriter buffer = new BufferedWriter(writer);
         for (String line: listLines) {
+        	
+        	
             buffer.write(line);
+            
             buffer.newLine();
         }
         buffer.close();

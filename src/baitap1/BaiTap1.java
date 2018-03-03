@@ -17,16 +17,26 @@ public class BaiTap1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        // TODO code application logic here
-    File file = new File();
-    String path = "C:\\Users\\Anh Tu\\Desktop\\testout.txt";
-    String inputPath = "C:\\Users\\Anh Tu\\Desktop\\testin.txt";
-    
-    
 
+    File file = new File();
+    Process process = new Process();
+    String path = "testout.txt";
+    String inputPath = "testin.txt";
+    String stopwordPath = "stopword.txt";
+    
+    ArrayList<String> listStopWord = new ArrayList<String>();
     ArrayList<String> listLines = new ArrayList<String>();
     
+    // read data
+    listStopWord= file.read(stopwordPath);
     listLines = file.read(inputPath);
+    
+    // process  
+    listLines = process.removeRegex(listLines);
+    listLines = process.removeStopWord(listLines, listStopWord);
+    listLines = process.upperToLowerDeleteSpace(listLines);
+    
+    // write to file
     file.write(path, listLines);
 
     }
