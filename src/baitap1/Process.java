@@ -32,9 +32,19 @@ public class Process {
 	public ArrayList<String> removeStopWord(ArrayList<String> listLines, ArrayList<String> listStopWord) {
 		ArrayList<String> listResult = new ArrayList<String>();
 		for (String line : listLines) {
+			
 			for (String stopword : listStopWord) {
-				line = line.replaceAll(stopword + " ", "");
-				line = line.replaceAll(" " + stopword, "");
+				//delete stopword in the start of line
+				if(line.indexOf(stopword) == 0){
+					line = line.replace(stopword + " ", "");
+				}
+				// delete stopword in the end of line
+				if(line.lastIndexOf(stopword) == (line.length()-stopword.length())){				
+					line = line.replace(" " + stopword, "");
+				}
+				
+				line = line.replace(" "+ stopword + " ", " ");
+				
 			}
 			listResult.add(line);
 		}
