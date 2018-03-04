@@ -18,28 +18,33 @@ public class BaiTap1 {
      */
     public static void main(String[] args) throws Exception {
 
-    File file = new File();
-    Process process = new Process();
-    String path = "testout.txt";
-    String inputPath = "testin.txt";
-    String stopwordPath = "stopword.txt";
-    
-    ArrayList<String> listStopWord = new ArrayList<String>();
-    ArrayList<String> listLines = new ArrayList<String>();
-    
-    // read data
-    listStopWord= file.read(stopwordPath);
-    listLines = file.read(inputPath);
-    
-    // process  
-    listLines = process.removeRegex(listLines);
-    listLines = process.removeStopWord(listLines, listStopWord);
-    listLines = process.upperToLowerDeleteSpace(listLines);
-    
-    // write to file
-    file.write(path, listLines);
+        File file = new File();
+        Process process = new Process();
+        String path = "testout.txt";
+        String inputPath = "testin.txt";
+        String stopwordPath = "stopword.txt";
+        String resultPath = "result.txt";
 
+        ArrayList<String> listStopWord = new ArrayList<String>();
+        ArrayList<String> listLines = new ArrayList<String>();
+
+        // read data
+        listStopWord = file.read(stopwordPath);
+        listLines = file.read(inputPath);
+
+        // process  
+        listLines = process.removeRegex(listLines);
+        listLines = process.removeStopWord(listLines, listStopWord);
+        listLines = process.upperToLowerDeleteSpace(listLines);
+
+        // write to file
+       file.write(path, listLines);
+
+        TFIDF tfidf = new TFIDF();
+        ArrayList<String> Lines = file.read(path);
+        
+        
+         file.write(resultPath,tfidf.termFrequency(Lines,3));
+        
     }
-    
-    
 }
