@@ -8,7 +8,6 @@ package baitap1;
 import java.util.ArrayList;
 
 /**
- *
  * @author Anh Tu
  */
 public class BaiTap1 {
@@ -20,16 +19,17 @@ public class BaiTap1 {
 
         File file = new File();
         Process process = new Process();
-        String path = "testout.txt";
-        String inputPath = "testin.txt";
-        String stopwordPath = "stopword.txt";
+        String outputPath = "output.txt";
+        String inputPath = "input.txt";
+        String stopWordsPath = "stopword.txt";
         String resultPath = "result.txt";
+        String featuresPath = "features.txt";
 
         ArrayList<String> listStopWord = new ArrayList<String>();
         ArrayList<String> listLines = new ArrayList<String>();
 
         // read data
-        listStopWord = file.read(stopwordPath);
+        listStopWord = file.read(stopWordsPath);
         listLines = file.read(inputPath);
 
         // process  
@@ -38,13 +38,15 @@ public class BaiTap1 {
         listLines = process.upperToLowerDeleteSpace(listLines);
 
         // write to file
-       file.write(path, listLines);
+        file.write(outputPath, listLines);
 
         TFIDF tfidf = new TFIDF();
-        ArrayList<String> Lines = file.read(path);
-        
-        
-         file.write(resultPath,tfidf.termFrequency(Lines,3));
-        
+        ArrayList<String> Lines = file.read(outputPath);
+        //ghi danh sach features
+        file.write(featuresPath, tfidf.getFeaturesList(Lines));
+        //ghi ket qua cuoi cung
+        file.write(resultPath, tfidf.termFrequency(Lines, 3));
+
+
     }
 }

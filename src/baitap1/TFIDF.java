@@ -8,7 +8,6 @@ package baitap1;
 import java.util.ArrayList;
 
 /**
- *
  * @author Anh Tu
  */
 public class TFIDF {
@@ -19,23 +18,23 @@ public class TFIDF {
         //Tong so van ban
         int d = input.size();
         String srtFeatures = "";
-        for(String feature:features){
+        for (String feature : features) {
             System.out.println(feature);
             srtFeatures += feature + " ";
-        } 
+        }
         System.out.println(srtFeatures);
         result.add(srtFeatures);
-        
-        for(String line: input){
+
+        for (String line : input) {
             String strFrequency = "";
-            
-                    for(String feature:features){
-                            double tf = (double)wordCount(feature,line)/(double)wordCountMax(feature,input);
-                            double idf = Math.log10((double)d/(double)lineCount(feature,input));
-                               double tdidf=tf*idf;
-                            strFrequency += (Double.toString(roundAvoid(tdidf,round))+ " ");
-                        } 
-                
+
+            for (String feature : features) {
+                double tf = (double) wordCount(feature, line) / (double) wordCountMax(feature, input);
+                double idf = Math.log10((double) d / (double) lineCount(feature, input));
+                double tdidf = tf * idf;
+                strFrequency += (Double.toString(roundAvoid(tdidf, round)) + " ");
+            }
+
             result.add(strFrequency);
         }
         return result;
@@ -64,16 +63,16 @@ public class TFIDF {
         }
         return max;
     }
-    
-    
+
+
     // Số lần xuất hiện nhiều nhất của 1 từ trong các dòng
     public int lineCount(String word, ArrayList<String> Lines) {
         int result = 0;
         for (String line : Lines) {
             int count = wordCount(word, line);
             if (count > 0)
-               result++;
-        
+                result++;
+
         }
         return result;
     }
@@ -93,8 +92,9 @@ public class TFIDF {
         return features;
 
     }
-      private double roundAvoid(double value, int places) {
-    double scale = Math.pow(10, places);
-    return Math.round(value * scale) / scale;
-}
+
+    private double roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
 }

@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 /**
- *
  * @author Anh Tu
  */
 public class File {
